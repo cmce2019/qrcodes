@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>LectorQR</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+        <input rel="stylesheet" type="button" onClick="leer()" height="10px" width="10px" value="Descargar">
+        <input rel="stylesheet" type="button" onClick="leer1()" height="10px" width="10px" value="Leer" id="bton">
+        <input rel="stylesheet" type="button" onClick="leer3()" height="10px" width="10px" value="Eliminar"  id="bt">
+  </div>
+
+  <div data-role="footer">
+  </div>
+</div> 
+   <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+        function leer(){
+            cordova.plugins.barcodeScanner.scan(
+               
+                
+      function (result) {  
+        prompt("Copy to clipboard: Ctrl+C, Enter", result.text);
+window.open(result.text, '_system', 'location=no');
+
+       
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : true, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : true, // iOS and Android
+          torchOn: true, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt : "Place a barcode inside the scan area", // Android
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: false // iOS and Android
+      }
+   );
+   
+        }
+        var a;
+        function leer1(){
+            cordova.plugins.barcodeScanner.scan(
+               
+                
+      function (result) {  
+          try{
+          a=result.text;
+       window.open(a);
+          }
+          catch(e){
+              alert("La pagina no existe")
+          }
+
+       
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : true, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : true, // iOS and Android
+          torchOn: true, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt : "Place a barcode inside the scan area", // Android
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: false // iOS and Android
+      }
+   );
+           
+}
+    function leer3(){
+        document.getElementById("bton").disabled=true;
+        alert("Se ha eliminado la ruta");
+        FileReader.abort();
+        a="";
+    }
+
+
+    </script>
+
+</body>
